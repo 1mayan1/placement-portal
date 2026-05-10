@@ -301,7 +301,7 @@ export default async function LandingPage() {
           <span className="text-white/60 text-sm font-medium">MCA Placement Portal</span>
         </div>
         <p className="text-white/30 text-xs">
-          [COLLEGE NAME] · Department of Computer Applications · Major Project 2025–26
+          Shri Ram Institute of Technology, Jabalpur · MCA Department · Major Project 2025–26 · Made by Sarvpriya Shrivastava (0205CA241037)
         </p>
       </footer>
 
