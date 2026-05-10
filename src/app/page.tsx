@@ -128,7 +128,7 @@ export default async function LandingPage() {
           {/* AI badge */}
           <div className="inline-flex items-center gap-1.5 bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-8 tracking-wide">
             <Sparkles className="w-3 h-3" />
-            Powered by Claude AI · Anthropic
+            Made by Sarvpriya Shrivastava · Powered by Claude AI
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-6">
