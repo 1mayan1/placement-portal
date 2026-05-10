@@ -1,19 +1,3 @@
-/**
- * POST /api/student/resume
- *
- * Receives a PDF file upload, then:
- * 1. Extracts plain text with pdfjs-dist (Mozilla PDF.js)
- * 2. Sends text to Claude API → returns structured JSON
- * 3. Saves the PDF to MongoDB GridFS
- * 4. Updates the student's resumeFileId in the database
- * 5. Returns the extracted data to the frontend so it can pre-fill the form
- *
- * Why pdfjs-dist instead of pdf-parse?
- * pdf-parse has a bug where it tries to read a test file on every import,
- * which fails in Next.js and causes all uploads to return 422 immediately.
- * pdfjs-dist (Mozilla's own library) has no such issue.
- */
-
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -22,39 +6,14 @@ import Student from "@/models/Student";
 import { uploadResume, deleteResume } from "@/lib/gridfs";
 import { extractResumeData } from "@/lib/claude";
 
-/** Extract all text from a PDF buffer using pdfjs-dist. */
+export const maxDuration = 60;
+export const runtime = "nodejs";
+
 async function extractTextFromPDF(buffer: Buffer): Promise<string> {
-  // Dynamic import keeps pdfjs-dist out of the webpack bundle entirely.
-  // Next.js resolves this at runtime through Node.js, not through webpack.
-  const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs");
-
-  // pdfjs-dist needs a worker to run PDF decoding in a separate thread.
-  // We point it to the actual worker file using a file:// URL so Node.js
-  // can locate it in node_modules at runtime.
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    `file://${process.cwd()}/node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs`;
-
-  // Load the PDF — pdfjs-dist expects a Uint8Array, not a Buffer
-  const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(buffer) });
-  const pdf = await loadingTask.promise;
-
-  const pageTexts: string[] = [];
-
-  // Loop through every page and collect text
-  for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-    const page = await pdf.getPage(pageNum);
-    const content = await page.getTextContent();
-
-    // Each item is either a TextItem (has .str) or a TextMarkedContent (no .str).
-    // We only want TextItem entries.
-    const pageText = content.items
-      .map((item) => ("str" in item ? (item as { str: string }).str : ""))
-      .join(" ");
-
-    pageTexts.push(pageText);
-  }
-
-  return pageTexts.join("\n");
+  const { extractText, getDocumentProxy } = await import("unpdf");
+  const pdf = await getDocumentProxy(new Uint8Array(buffer));
+  const { text } = await extractText(pdf, { mergePages: true });
+  return text;
 }
 
 // ─── Route handler ────────────────────────────────────────────────────────────
