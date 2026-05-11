@@ -126,7 +126,7 @@ export interface ATSResult {
 
 /**
  * Analyses a resume and returns an ATS (Applicant Tracking System) score + feedback.
- * Used on the Resume Analyzer page (Phase 6).
+ * Used on the Resume Analyzer page.
  */
 export async function scoreResume(resumeText: string): Promise<ATSResult> {
   const client = getClient();
@@ -181,7 +181,7 @@ export interface JobMatch {
 
 /**
  * Given resume text + array of jobs, returns top 5 job matches with scores.
- * Used on the Resume Analyzer page (Phase 6).
+ * Used on the Resume Analyzer page.
  */
 export async function matchJobsToResume(
   resumeText: string,
@@ -241,7 +241,7 @@ export interface JDCompareResult {
 
 /**
  * Compares a resume against a pasted Job Description and returns a detailed analysis.
- * Used in the "Compare with JD" tool (Phase 6).
+ * Used in the "Compare with JD" tool.
  */
 export async function compareResumeWithJD(
   resumeText: string,
@@ -286,7 +286,7 @@ Return exactly:
 
 /**
  * Generates 5 interview questions for a given job role.
- * Used in the Mock Interview module (Phase 7).
+ * Used in the Mock Interview module.
  */
 export async function generateInterviewQuestions(
   jobRole: string
@@ -318,7 +318,7 @@ Mix technical and behavioural questions appropriate for a fresh graduate.`,
 
 /**
  * Evaluates a single interview answer and returns a score + feedback.
- * Used in the Mock Interview module (Phase 7).
+ * Used in the Mock Interview module.
  */
 export async function evaluateAnswer(
   question: string,

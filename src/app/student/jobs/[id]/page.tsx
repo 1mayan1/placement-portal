@@ -152,7 +152,7 @@ export default function JobDetailPage() {
         </div>
       </div>
 
-      {/* Eligibility card — the visual centrepiece of Phase 4 */}
+      {/* Eligibility card */}
       <Card className={`mb-6 border-2 ${isEligible ? "border-green-200" : "border-red-200"}`}>
         <CardHeader className="pb-3">
           <CardTitle className="text-base flex items-center gap-2">

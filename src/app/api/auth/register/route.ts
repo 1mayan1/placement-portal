@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Create the blank Student profile linked to this user
-    // The student will fill it in on the Profile page (Phase 3)
+    // The student will fill it in on the Profile page
     await Student.create({
       userId: user._id,
     });

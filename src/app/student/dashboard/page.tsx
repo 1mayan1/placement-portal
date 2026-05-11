@@ -1,14 +1,8 @@
 "use client";
 
-/**
- * Student dashboard — the first page a student sees after login.
- * Shows summary stats and quick links. Will be enriched in later phases.
- */
-
 import { useSession } from "next-auth/react";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -93,23 +87,6 @@ export default function StudentDashboard() {
               </CardHeader>
             </Card>
           </Link>
-        ))}
-      </div>
-
-      {/* Placeholder stats — these will use real data from Phase 4 onwards */}
-      <div className="grid grid-cols-3 gap-4 mt-6">
-        {[
-          { label: "Jobs Available", value: "—", note: "Come back after Phase 4" },
-          { label: "Applications", value: "—", note: "Come back after Phase 5" },
-          { label: "ATS Score", value: "—", note: "Upload resume in Phase 3" },
-        ].map((stat) => (
-          <Card key={stat.label}>
-            <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
-              <p className="text-sm font-medium text-gray-600 mt-1">{stat.label}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{stat.note}</p>
-            </CardContent>
-          </Card>
         ))}
       </div>
     </div>

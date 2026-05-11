@@ -140,7 +140,7 @@ export default function BrowseJobsPage() {
                       <div className="flex items-center gap-2 flex-wrap">
                         <h3 className="font-semibold text-gray-900">{job.title}</h3>
 
-                        {/* Eligibility badge — the star of Phase 4 */}
+                        {/* Eligibility badge */}
                         {job.hasApplied ? (
                           <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100 gap-1">
                             <CheckCheck className="w-3 h-3" />

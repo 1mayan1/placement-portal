@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Mock Interview — Phase 7 showpiece.
+ * Mock Interview
  *
  * State machine:
  *   setup → starting → asking → grading → graded → (loop) → done
