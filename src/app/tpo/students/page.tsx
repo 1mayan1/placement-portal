@@ -1,7 +1,6 @@
 "use client";
 
 import { Fragment, useEffect, useMemo, useState } from "react";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -189,42 +188,30 @@ function ExpandedProfile({ student }: { student: StudentRow }) {
         </div>
       )}
 
-      <div className="flex flex-wrap items-center gap-4">
-        {student.isPlaced && student.placementInfo && (
-          <div>
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-              Placement
-            </p>
-            <div className="flex items-center gap-2">
-              <Trophy className="w-4 h-4 text-green-500 flex-shrink-0" />
-              <span className="text-sm font-medium text-green-700">
-                {student.placementInfo.company}
+      {student.isPlaced && student.placementInfo && (
+        <div>
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+            Placement
+          </p>
+          <div className="flex items-center gap-2">
+            <Trophy className="w-4 h-4 text-green-500 flex-shrink-0" />
+            <span className="text-sm font-medium text-green-700">
+              {student.placementInfo.company}
+            </span>
+            <span className="text-sm text-gray-500">
+              — {student.placementInfo.package}
+            </span>
+            {student.placementInfo.date && (
+              <span className="text-xs text-gray-400">
+                {new Date(student.placementInfo.date).toLocaleDateString(
+                  "en-IN",
+                  { day: "numeric", month: "short", year: "numeric" }
+                )}
               </span>
-              <span className="text-sm text-gray-500">
-                — {student.placementInfo.package}
-              </span>
-              {student.placementInfo.date && (
-                <span className="text-xs text-gray-400">
-                  {new Date(student.placementInfo.date).toLocaleDateString(
-                    "en-IN",
-                    { day: "numeric", month: "short", year: "numeric" }
-                  )}
-                </span>
-              )}
-            </div>
+            )}
           </div>
-        )}
-
-        <div className={student.isPlaced && student.placementInfo ? "ml-auto" : ""}>
-          <Link
-            href={`/tpo/students/${student._id}/applications`}
-            className="text-sm text-indigo-600 hover:text-indigo-800 hover:underline flex items-center gap-1"
-            onClick={(e) => e.stopPropagation()}
-          >
-            View Applications →
-          </Link>
         </div>
-      </div>
+      )}
     </div>
   );
 }
